@@ -2,6 +2,7 @@
     import Left from "./screen/Left.svelte";
     import Center from "./screen/Center.svelte";
     import Right from "./screen/Right.svelte";
+    import FileParser from "./FileParser.svelte";
 </script>
 
 <div class="container f">
@@ -13,6 +14,7 @@
     </div>
     <div class="right fc">
         <Right />
+        <FileParser />
     </div>
 </div>
 

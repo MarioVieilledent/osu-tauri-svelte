@@ -38,11 +38,15 @@
         h = ctx.canvas.height;
 
         setInterval(() => {
-            initCanvas();
+            draw();
         }, interval);
     });
 
-    function windowResize() {
+    function draw(): void {
+        initCanvas();
+    }
+
+    function windowResize(): void {
         if (containerCenter && ctx) {
             h = containerCenter.clientHeight;
             canvasElement.height = h - SPACE_FOR_KEYS;
@@ -50,7 +54,7 @@
         }
     }
 
-    function initCanvas() {
+    function initCanvas(): void {
         ctx.strokeStyle = "#636363";
         ctx.beginPath();
         ctx.moveTo(0, 0);
