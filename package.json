@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@tauri-apps/api": "^1.2.0",
-    "sass": "^1.58.0"
+    "sass": "^1.58.0",
+    "svelte-watch-resize": "^1.0.3"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.0",

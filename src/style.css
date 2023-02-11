@@ -14,6 +14,23 @@
   -webkit-text-size-adjust: 100%;
 }
 
+html {
+  height: -webkit-fill-available;
+  height: 100%;
+}
+
+
+body {
+  width: 100%;
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
 .f {
   display: flex;
 }
@@ -41,6 +58,13 @@ h1, h2, h3, p {
 
 .shadow:hover {
   filter: drop-shadow(0 0 2em #24c8db);
+}
+
+button, input, select {
+  border: none;
+  background-color: #444444;
+  height: 24px;
+  color: #ddd;
 }
 
 @media (prefers-color-scheme: light) {
