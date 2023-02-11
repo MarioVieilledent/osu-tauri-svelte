@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { keys, fps, KEY_SETTINGS } from "../settings";
+    import { keys, fps, KEY_SETTINGS, volume } from "../settings";
 
     function setKey(index: number, e: any): void {
         if (index !== 3) {
@@ -34,7 +34,12 @@
 </script>
 
 <div class="container fc">
-    <span>Settings</span>
+    <div class="center f">
+        <span>Settings</span>
+    </div>
+
+    <div class="separator" />
+
     <div class="setting-block fc">
         <span>Keys</span>
         <div class="four-inputs f">
@@ -64,19 +69,28 @@
             />
         </div>
     </div>
+
+    <div class="separator" />
+
     <div class="setting-block fc">
         <span>FPS</span>
         <input type="text" bind:value={$fps} />
+    </div>
+
+    <div class="separator" />
+
+    <div class="setting-block fc">
+        <span>Volume {$volume}%</span>
+        <input type="range" min="0" max="100" bind:value={$volume} />
     </div>
 </div>
 
 <style lang="scss">
     .container {
         .setting-block {
-            margin-top: 6px;
-            padding-top: 6px;
-            border-top: 1px solid #666;
-
+            span {
+                margin-bottom: 6px;
+            }
             .four-inputs {
                 justify-content: space-between;
                 input {

@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import type { Osu } from "./osu-types";
 
-    let map: any = {};
+    export let map: any = {};
 
     const patternOsuFileFormat = "osuFileFormat";
     const patternGeneral = "General";
@@ -15,7 +15,10 @@
     const patternHitObjects = "HitObjects";
 
     const regexOsuFileFormat = /osu file format (.*)/;
-    const regexKeyValue = /(\w*):\s(.*)/;
+    const regexKeyValue = /(\w+):\s?(.*)/;
+    const regexTimingPoint =
+        /([-+]?[0-9]*\.?[0-9]+),([-+]?[0-9]*\.?[0-9]+),([-+]?[0-9]*\.?[0-9]+),([-+]?[0-9]*\.?[0-9]+),([-+]?[0-9]*\.?[0-9]+),([-+]?[0-9]*\.?[0-9]+),([-+]?[0-9]*\.?[0-9]+),([-+]?[0-9]*\.?[0-9]+)/;
+    const regexHitObject = /([0-9]+),([0-9]+),([0-9]+),([0-9]+),([0-9]+),?/;
 
     function parseOsuFile(fileData: string): Osu {
         let osu: Osu = {
@@ -99,19 +102,43 @@
                     line.includes(`[${patternColours}]`)
                         ? (state = patternColours)
                         : {};
+                    line.includes(`[${patternHitObjects}]`)
+                        ? (state = patternHitObjects)
+                        : {};
+                    const match = line.match(regexTimingPoint);
+                    if (match) {
+                        osu.TimingPoints.push({
+                            time: Number(match[1]),
+                            beatLength: Number(match[2]),
+                            meter: Number(match[3]),
+                            sampleSet: Number(match[4]) as 0 | 1 | 2 | 3,
+                            sampleIndex: Number(match[5]),
+                            volume: Number(match[6]),
+                            uninherited: Number(match[7]) as 0 | 1,
+                            effects: Number(match[8]),
+                        });
+                    }
                     break;
                 }
                 case patternColours: {
                     line.includes(`[${patternHitObjects}]`)
                         ? (state = patternHitObjects)
                         : {};
+                    // Not coded yet!
                     break;
                 }
                 case patternHitObjects: {
+                    const match = line.match(regexHitObject);
+                    if (match) {
+                        osu.HitObjects.push({
+                            x: Number(match[1]),
+                            y: Number(match[2]),
+                            time: Number(match[3]),
+                            type: Number(match[4]),
+                            hitSound: Number(match[5]) as 0 | 1 | 2 | 3,
+                        });
+                    }
                     break;
-                }
-                default: {
-                    console.warn("Osu Parse Error");
                 }
             }
         });
@@ -122,10 +149,10 @@
 
     onMount(async () => {
         fetch(
-            "./Songs/Wakusei/SOUND HOLIC feat. Nana Takahashi - Wakusei Lolipop (Jungdongjin) [LNli].osu"
+            "./Songs/480769 SOUND HOLIC feat Nana Takahashi - Wakusei_Lollipop/SOUND HOLIC feat. Nana Takahashi - WakuseiLollipop (Adot) [NIGHTMARE].osu"
         ).then((res) =>
             res.text().then((res: string) => {
-                parseOsuFile(res);
+                map = parseOsuFile(res);
             })
         );
     });

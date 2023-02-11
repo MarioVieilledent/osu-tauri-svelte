@@ -1,16 +1,16 @@
 
-// Description?: https?://osu.ppy.sh/wiki/en/Client/File_formats/Osu_%28file_format%29
+// Description: https://osu.ppy.sh/wiki/en/Client/File_formats/Osu_%28file_format%29
 
 export interface Osu {
-    osuFileFormat: string;
-    General: OsuGeneral;
-    Editor: Editor;
-    Metadata: Metadata;
-    Difficulty: Difficulty;
-    Events: Events;
-    TimingPoints: TimingPoint[];
-    Colours: Colour[];
-    HitObjects: HitObject[];
+    osuFileFormat?: string;
+    General?: OsuGeneral;
+    Editor?: Editor;
+    Metadata?: Metadata;
+    Difficulty?: Difficulty;
+    Events?: Events;
+    TimingPoints?: TimingPoint[];
+    Colours?: Colour[];
+    HitObjects?: HitObject[];
 }
 
 export interface OsuGeneral {
@@ -69,14 +69,14 @@ export interface Events {
 }
 
 export interface TimingPoint {
-    time?: number;
-    beatLength?: number;
-    meter?: number;
-    sampleSet?: 0 | 1 | 2 | 3;
-    sampleIndex?: number;
-    volume?: number;
-    uninherited?: 0 | 1;
-    effects?: number;
+    time: number;
+    beatLength: number;
+    meter: number;
+    sampleSet: 0 | 1 | 2 | 3;
+    sampleIndex: number;
+    volume: number;
+    uninherited: 0 | 1;
+    effects: number;
 }
 
 export interface Colour {
@@ -86,11 +86,11 @@ export interface Colour {
 }
 
 export interface HitObject {
-    x?: number;
-    y?: number;
-    time?: number;
-    type?: number;
-    hitSound?: number;
+    x: number;
+    y: number;
+    time: number;
+    type: number;
+    hitSound: 0 | 1 | 2 | 3;
     objectParams?: number[];
     hitSample?: number[];
 }
